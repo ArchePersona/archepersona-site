@@ -23,6 +23,7 @@ export default function ArcheLandingPage() {
           --text-bronze: rgba(224, 197, 154, 0.92);
           --cool-text: rgba(154, 187, 177, 0.62);
           --deep: #061313;
+          --logo-black: #020505;
         }
 
         .arche-page {
@@ -35,7 +36,7 @@ export default function ArcheLandingPage() {
         .page-shell {
           position: relative;
           min-height: 205vh;
-          padding: 2.4rem 1.25rem 0;
+          padding: 0 1.25rem 0;
           background:
             radial-gradient(circle at 50% 4%, rgba(96, 157, 157, 0.34), transparent 25rem),
             radial-gradient(circle at 50% 32%, rgba(61, 115, 112, 0.18), transparent 38rem),
@@ -78,17 +79,32 @@ export default function ArcheLandingPage() {
           align-items: center;
         }
 
+        .logo-header {
+          position: relative;
+          z-index: 3;
+          width: calc(100vw + 2.5rem);
+          margin-left: -1.25rem;
+          margin-right: -1.25rem;
+          padding: 1.35rem 1.25rem 1.15rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background:
+            linear-gradient(180deg, #010303 0%, var(--logo-black) 58%, #030808 100%);
+          border-bottom: 1px solid rgba(210, 172, 116, 0.08);
+          box-shadow:
+            0 18px 46px rgba(0, 0, 0, 0.28),
+            0 1px 0 rgba(255, 255, 255, 0.02) inset;
+        }
+
         .company-logo {
           width: min(760px, 86vw);
           height: auto;
-          margin-top: 0.15rem;
-          opacity: 0.94;
-          mix-blend-mode: screen;
+          opacity: 0.96;
           filter:
             contrast(1.04)
             saturate(0.94)
-            drop-shadow(0 0 10px rgba(213, 179, 130, 0.11))
-            drop-shadow(0 12px 22px rgba(0, 0, 0, 0.25));
+            drop-shadow(0 0 10px rgba(213, 179, 130, 0.1));
         }
 
         .present-line {
@@ -269,7 +285,11 @@ export default function ArcheLandingPage() {
         @media (max-width: 760px) {
           .page-shell {
             min-height: 178vh;
-            padding-top: 1.6rem;
+            padding-top: 0;
+          }
+
+          .logo-header {
+            padding: 1rem 1rem 0.9rem;
           }
 
           .company-logo {
@@ -307,7 +327,9 @@ export default function ArcheLandingPage() {
 
       <section className="page-shell">
         <div className="hero-stack">
-          <img src={LOGO_SRC} alt="ArchePersona" className="company-logo" />
+          <header className="logo-header" aria-label="ArchePersona company header">
+            <img src={LOGO_SRC} alt="ArchePersona" className="company-logo" />
+          </header>
           <div className="present-line">Proudly Presents</div>
           <h1 className="arche-title">ARCHE</h1>
 
