@@ -83,7 +83,12 @@ export default function ArcheLandingPage() {
           height: auto;
           margin-top: 0.15rem;
           opacity: 0.94;
-          filter: drop-shadow(0 0 18px rgba(213, 179, 130, 0.12));
+          mix-blend-mode: screen;
+          filter:
+            contrast(1.04)
+            saturate(0.94)
+            drop-shadow(0 0 10px rgba(213, 179, 130, 0.11))
+            drop-shadow(0 12px 22px rgba(0, 0, 0, 0.25));
         }
 
         .present-line {
