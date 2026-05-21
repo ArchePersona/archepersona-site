@@ -13,7 +13,7 @@ export default function ProtectedRoute({ children }) {
     );
   }
   if (!session) {
-    return <Navigate to="/login" state={{ from: location }} replace />;
+    return <Navigate to="/brunel/login" state={{ from: location }} replace />;
   }
   return children;
 }
