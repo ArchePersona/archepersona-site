@@ -56,7 +56,7 @@ function LandingPage() {
             </p>
 
             <div className="hero-actions">
-              <a href="/brunel/login" className="primary-button">
+              <a href="/brunel/disclaimer" className="primary-button">
                 Launch Brunel
               </a>
             </div>
@@ -102,14 +102,7 @@ function App() {
 
           <Route path="/brunel/login" element={<Login />} />
 
-          <Route
-            path="/brunel/disclaimer"
-            element={
-              <ProtectedRoute>
-                <Disclaimer />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/brunel/disclaimer" element={<Disclaimer />} />
 
           <Route
             path="/brunel"
