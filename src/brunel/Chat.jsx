@@ -330,7 +330,7 @@ function Chat() {
           {isAdmin && (
             <button
               className="reset-btn"
-              onClick={() => navigate("/admin")}
+              onClick={() => navigate("/brunel/admin")}
               data-testid="admin-link-btn"
               title="Admin override panel"
             >
