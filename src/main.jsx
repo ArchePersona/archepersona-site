@@ -1,6 +1,20 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate
+} from 'react-router-dom';
+
 import './styles.css';
+
+import { AuthProvider } from './brunel/AuthContext.jsx';
+import Chat from './brunel/Chat.jsx';
+import Login from './brunel/Login.jsx';
+import Disclaimer from './brunel/Disclaimer.jsx';
+import Admin from './brunel/Admin.jsx';
+import ProtectedRoute from './brunel/ProtectedRoute.jsx';
 
 const pillars = [
   {
@@ -9,53 +23,51 @@ const pillars = [
   },
   {
     title: 'Continuity',
-    text: 'Memory is not treated as trivia storage. It becomes weighted relational context that shapes behavior.'
+    text: 'Memory becomes weighted relational context instead of disposable session history.'
   },
   {
     title: 'Coherence',
-    text: 'State, mode, pressure, drift, and baseline attraction keep interaction stable instead of performative.'
+    text: 'Baseline attraction, arbitration, pressure, and drift stabilize persistent intelligence.'
   }
 ];
 
-const mechanics = [
-  'Baseline as attractor',
-  'State and mode governance',
-  'Memory weighting',
-  'Behavioral arbitration',
-  'Pressure and drift detection',
-  'De-escalation dynamics',
-  'Governed expression',
-  'Human-compatible delivery'
-];
-
-function App() {
+function LandingPage() {
   return (
     <main className="site-shell">
       <section className="hero-section">
-        <div className="nav-bar" aria-label="Site header">
+        <div className="nav-bar">
           <div className="brand-mark">ArchePersona</div>
           <div className="status-pill">ARCHE Engine</div>
         </div>
 
         <div className="hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">Behavioral middleware for unbounded intelligence.</p>
-            <h1>AI is becoming too powerful to behave like a text box.</h1>
-            <p className="lede">
-              ARCHE gives unbounded intelligence the behavioral physics to remain coherent,
-              bounded, and human-compatible.
+            <p className="eyebrow">
+              Behavioral middleware for unbounded intelligence.
             </p>
+
+            <h1>
+              AI is becoming too powerful to behave like a text box.
+            </h1>
+
+            <p className="lede">
+              ARCHE gives persistent intelligence the behavioral physics
+              to remain coherent, bounded, and human-compatible.
+            </p>
+
             <div className="hero-actions">
-              <a href="#runtime" className="primary-button">Explore the runtime</a>
-              <a href="#basement" className="secondary-button">Founders Basement</a>
+              <a href="/brunel/login" className="primary-button">
+                Launch Brunel
+              </a>
             </div>
           </div>
 
-          <div className="machine-card" aria-label="ARCHE runtime status panel">
+          <div className="machine-card">
             <div className="machine-topline">
               <span>ARCHE / runtime</span>
               <span className="live-dot">active thesis</span>
             </div>
+
             <div className="signal-stack">
               <div><strong>Baseline</strong><span>attractor</span></div>
               <div><strong>Drift</strong><span>pressure signal</span></div>
@@ -66,13 +78,7 @@ function App() {
         </div>
       </section>
 
-      <section className="section-panel" id="runtime">
-        <div className="section-kicker">The missing layer</div>
-        <h2>Not a wrapper. Not a mascot. A behavioral runtime.</h2>
-        <p>
-          The next problem is not whether AI can produce intelligent output. It is whether intelligence can stay
-          coherent, bounded, and human-compatible when it becomes continuous, relational, embodied, or operationally present.
-        </p>
+      <section className="section-panel">
         <div className="pillar-grid">
           {pillars.map((pillar) => (
             <article className="pillar-card" key={pillar.title}>
@@ -82,41 +88,52 @@ function App() {
           ))}
         </div>
       </section>
-
-      <section className="split-section">
-        <div>
-          <div className="section-kicker">Behavioral physics</div>
-          <h2>Healthy systems return to baseline unless the signal earns elevation.</h2>
-          <p>
-            ARCHE treats behavior as a governed system of forces: attraction, pressure, drift, decay,
-            arbitration, and controlled expression. Elevated states can be useful. They do not get to become home.
-          </p>
-        </div>
-        <div className="mechanics-grid">
-          {mechanics.map((item) => <span key={item}>{item}</span>)}
-        </div>
-      </section>
-
-      <section className="product-stack">
-        <div className="section-kicker">Product faces</div>
-        <h2>The engine is infrastructure. The personas are where people feel it.</h2>
-        <div className="stack-grid">
-          <article><strong>PUPPY</strong><span>Approachable companion proof.</span></article>
-          <article><strong>Buddy / Gal Pal</strong><span>Relational companion variants with different social defaults.</span></article>
-          <article><strong>Brunel</strong><span>Flagship governed personality and continuity layer.</span></article>
-          <article><strong>SIRENE / CHIMERA</strong><span>Advanced symbolic exploration and synthesis environments.</span></article>
-        </div>
-      </section>
-
-      <section className="basement" id="basement">
-        <p className="terminal-line">/boot/founders-basement/status</p>
-        <h2>Built to last. Built to matter. Unforgettably. Yours.</h2>
-        <p>
-          ArchePersona builds the behavioral middleware underneath AI systems that need continuity,
-          containment, and human-compatible expression.
-        </p>
-      </section>
     </main>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+
+          <Route path="/" element={<LandingPage />} />
+
+          <Route path="/brunel/login" element={<Login />} />
+
+          <Route
+            path="/brunel/disclaimer"
+            element={
+              <ProtectedRoute>
+                <Disclaimer />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/brunel"
+            element={
+              <ProtectedRoute>
+                <Chat />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/brunel/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route path="*" element={<Navigate to="/" replace />} />
+
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 
