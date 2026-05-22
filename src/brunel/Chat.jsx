@@ -7,7 +7,7 @@ import "./paced.css";
 import "./App.css";
 import "./index.css";
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://arche-core.onrender.com";
 const API = `${BACKEND_URL}/api`;
 
 const TYPE_SPEED_MS = {
@@ -177,11 +177,6 @@ function Chat() {
     }
   };
 
-  // ------------------------------------------------------------------
-  // Pair the messages into [{user, assistant}, ...] so we can render
-  // one copy button per ask/answer block. Trailing user-without-assistant
-  // (BRUNEL still thinking) is rendered alone.
-  // ------------------------------------------------------------------
   const pairs = useMemo(() => {
     const out = [];
     let pending = null;
@@ -206,7 +201,6 @@ function Chat() {
     return out;
   }, [messages]);
 
-  // HH:MM/DD/MM/YY in local time
   const fmtTs = (iso) => {
     if (!iso) return "";
     try {
@@ -243,9 +237,6 @@ function Chat() {
     }
   };
 
-  // ------------------------------------------------------------------
-  // Voice → text (Whisper)
-  // ------------------------------------------------------------------
   const startRecording = async () => {
     if (recording || transcribing) return;
     try {
@@ -256,7 +247,6 @@ function Chat() {
         if (e.data && e.data.size > 0) audioChunksRef.current.push(e.data);
       };
       mr.onstop = async () => {
-        // stop the mic
         stream.getTracks().forEach((t) => t.stop());
         const blob = new Blob(audioChunksRef.current, { type: "audio/webm" });
         audioChunksRef.current = [];
